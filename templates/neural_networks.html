@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Networks - Uninet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background-color: var(--primary-color);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .nn-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .nn-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .nn-details {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .architecture-diagram {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <h3 class="mb-4">Uninet</h3>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="/"><i class="fas fa-home me-2"></i>Dashboard</a>
+                    <a class="nav-link" href="/ml-tasks"><i class="fas fa-brain me-2"></i>ML Tasks</a>
+                    <a class="nav-link active" href="/neural-networks"><i class="fas fa-network-wired me-2"></i>Neural Networks</a>
+                    <a class="nav-link" href="/analytics"><i class="fas fa-chart-line me-2"></i>Analytics</a>
+                    <a class="nav-link" href="/settings"><i class="fas fa-cog me-2"></i>Settings</a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 p-4">
+                <div class="nn-details">
+                    <h2>Neural Network Architectures</h2>
+                    <p class="text-muted">Explore different neural network architectures supported by Uninet</p>
+                </div>
+
+                <div class="row">
+                    <!-- CNN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-network-wired me-2"></i>Convolutional Neural Network (CNN)</h5>
+                                <p class="text-muted">Specialized for processing grid-like data</p>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Image Classification</li>
+                                    <li>Object Detection</li>
+                                    <li>Image Segmentation</li>
+                                    <li>Video Analysis</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Convolutional Layers → Pooling → Fully Connected</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RNN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-sync me-2"></i>Recurrent Neural Network (RNN)</h5>
+                                <p class="text-muted">Designed for sequential data processing</p>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Natural Language Processing</li>
+                                    <li>Time Series Analysis</li>
+                                    <li>Speech Recognition</li>
+                                    <li>Music Generation</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: LSTM/GRU Cells → Recurrent Connections</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transformer -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-brain me-2"></i>Transformer</h5>
+                                <p class="text-muted">Attention-based architecture for sequence processing</p>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Machine Translation</li>
+                                    <li>Text Generation</li>
+                                    <li>Question Answering</li>
+                                    <li>Image Recognition</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Self-Attention → Feed Forward → Layer Norm</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GAN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-magic me-2"></i>Generative Adversarial Network (GAN)</h5>
+                                <p class="text-muted">Generative model with competing networks</p>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Image Generation</li>
+                                    <li>Style Transfer</li>
+                                    <li>Data Augmentation</li>
+                                    <li>Super Resolution</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Generator → Discriminator → Adversarial Training</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
