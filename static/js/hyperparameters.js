@@ -701,7 +701,7 @@ window.hyperparameters = {
                 "min": 0.0001,
                 "max": 0.1,
                 "step": 0.0001,
-                "default": 0.0001
+                "default": 0.0000
             },
             {
                 "name": "batch_size",
@@ -1452,4 +1452,6 @@ window.hyperparameters = {
             }
         ]
     }
-}; 
+};
+
+export default hyperparameters;

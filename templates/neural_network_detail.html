@@ -20,51 +20,6 @@
             </div>
         </div>
 
-        <!-- Task Selection Section -->
-        <div class="col-12 mb-4">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Task Selection</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="taskType" class="form-label">Select Task Type:</label>
-                                <select class="form-select" id="taskType" onchange="updateHyperparameters()">
-                                    <option value="">Choose a task...</option>
-                                    {% for task in tasks %}
-                                    <option value="{{ task.id }}">{{ task.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hyperparameters Section -->
-        <div class="col-12 mb-4" id="hyperparametersSection" style="display: none;">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-sliders-h me-2"></i>Hyperparameters</h5>
-                </div>
-                <div class="card-body">
-                    <form id="hyperparametersForm">
-                        <div class="row" id="hyperparametersContent">
-                            <!-- Dynamic hyperparameters will be inserted here -->
-                        </div>
-                        <div class="mt-3">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-play me-2"></i>Train Model
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <!-- Overview Section -->
         <div class="col-md-6 mb-4">
             <div class="card h-100">
@@ -117,6 +72,51 @@
                 </div>
                 <div class="card-body">
                     <pre class="bg-light p-3 rounded"><code>{{ implementation_code }}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Selection Section -->
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Task Selection</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="taskType" class="form-label">Select Task Type:</label>
+                                <select class="form-select" id="taskType" onchange="updateHyperparameters()">
+                                    <option value="">Choose a task...</option>
+                                    {% for task in tasks %}
+                                    <option value="{{ task.id }}">{{ task.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hyperparameters Section -->
+        <div class="col-12 mb-4" id="hyperparametersSection" style="display: none;">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-sliders-h me-2"></i>Hyperparameters</h5>
+                </div>
+                <div class="card-body">
+                    <form id="hyperparametersForm">
+                        <div class="row" id="hyperparametersContent">
+                            <!-- Dynamic hyperparameters will be inserted here -->
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-play me-2"></i>Train Model
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -174,113 +174,8 @@
     }
 </style>
 
+<script src="/static/js/hyperparameters.js"></script>
 <script>
-const hyperparameters = {
-    "fnn": {
-        "classification": [
-            {
-                "name": "hidden_layers",
-                "label": "Number of Hidden Layers",
-                "type": "number",
-                "min": 1,
-                "max": 10,
-                "default": 2
-            },
-            {
-                "name": "neurons_per_layer",
-                "label": "Neurons per Layer",
-                "type": "number",
-                "min": 16,
-                "max": 512,
-                "default": 64
-            },
-            {
-                "name": "activation",
-                "label": "Activation Function",
-                "type": "select",
-                "options": ["relu", "tanh", "sigmoid"],
-                "default": "relu"
-            },
-            {
-                "name": "learning_rate",
-                "label": "Learning Rate",
-                "type": "number",
-                "min": 0.0001,
-                "max": 0.1,
-                "step": 0.0001,
-                "default": 0.001
-            },
-            {
-                "name": "batch_size",
-                "label": "Batch Size",
-                "type": "number",
-                "min": 8,
-                "max": 512,
-                "default": 32
-            },
-            {
-                "name": "epochs",
-                "label": "Number of Epochs",
-                "type": "number",
-                "min": 1,
-                "max": 1000,
-                "default": 100
-            }
-        ],
-        "regression": [
-            {
-                "name": "hidden_layers",
-                "label": "Number of Hidden Layers",
-                "type": "number",
-                "min": 1,
-                "max": 10,
-                "default": 2
-            },
-            {
-                "name": "neurons_per_layer",
-                "label": "Neurons per Layer",
-                "type": "number",
-                "min": 16,
-                "max": 512,
-                "default": 64
-            },
-            {
-                "name": "activation",
-                "label": "Activation Function",
-                "type": "select",
-                "options": ["relu", "tanh", "linear"],
-                "default": "relu"
-            },
-            {
-                "name": "learning_rate",
-                "label": "Learning Rate",
-                "type": "number",
-                "min": 0.0001,
-                "max": 0.1,
-                "step": 0.0001,
-                "default": 0.001
-            },
-            {
-                "name": "batch_size",
-                "label": "Batch Size",
-                "type": "number",
-                "min": 8,
-                "max": 512,
-                "default": 32
-            },
-            {
-                "name": "epochs",
-                "label": "Number of Epochs",
-                "type": "number",
-                "min": 1,
-                "max": 1000,
-                "default": 100
-            }
-        ]
-    }
-    // Add other network types here
-};
-
 function updateHyperparameters() {
     const taskType = document.getElementById('taskType').value;
     const hyperparametersSection = document.getElementById('hyperparametersSection');
@@ -292,7 +187,7 @@ function updateHyperparameters() {
     }
 
     const [networkType, task] = taskType.split('_');
-    const params = hyperparameters[networkType][task];
+    const params = window.hyperparameters[networkType][task];
     
     if (!params) {
         hyperparametersSection.style.display = 'none';
@@ -305,12 +200,9 @@ function updateHyperparameters() {
                 <div class="col-md-6 mb-3">
                     <label for="${param.name}" class="form-label">${param.label}</label>
                     <select class="form-select" id="${param.name}" name="${param.name}">
-                        ${param.options.map(opt => `
-                            <option value="${opt}" ${opt === param.default ? 'selected' : ''}>${opt}</option>
-                        `).join('')}
+                        ${param.options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
                     </select>
-                </div>
-            `;
+                </div>`;
         } else {
             return `
                 <div class="col-md-6 mb-3">
@@ -319,12 +211,12 @@ function updateHyperparameters() {
                            class="form-control" 
                            id="${param.name}" 
                            name="${param.name}"
-                           min="${param.min}"
-                           max="${param.max}"
-                           step="${param.step || 1}"
-                           value="${param.default}">
-                </div>
-            `;
+                           min="${param.min || ''}"
+                           max="${param.max || ''}"
+                           step="${param.step || ''}"
+                           value="${param.default || ''}"
+                           required>
+                </div>`;
         }
     }).join('');
 
@@ -334,9 +226,12 @@ function updateHyperparameters() {
 document.getElementById('hyperparametersForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
-    const params = Object.fromEntries(formData.entries());
-    console.log('Training with parameters:', params);
-    // Add your training logic here
+    const params = {};
+    for (let [key, value] of formData.entries()) {
+        params[key] = value;
+    }
+    console.log('Training parameters:', params);
+    // Here you would typically send these parameters to your backend
 });
 </script>
 {% endblock %}
