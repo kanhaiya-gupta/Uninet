@@ -57,8 +57,8 @@
                     <h5 class="mb-0"><i class="fas fa-project-diagram me-2"></i>Architecture</h5>
                 </div>
                 <div class="card-body">
-                    <div class="bg-light p-3 rounded">
-                        <code>{{ architecture }}</code>
+                    <div id="architectureDiagram" class="text-center">
+                        <!-- SVG diagram will be inserted here -->
                     </div>
                 </div>
             </div>
@@ -175,6 +175,7 @@
 </style>
 
 <script src="/static/js/hyperparameters.js"></script>
+<script src="/static/js/architecture_diagrams.js"></script>
 <script>
 function updateHyperparameters() {
     const taskType = document.getElementById('taskType').value;
@@ -232,6 +233,75 @@ document.getElementById('hyperparametersForm').addEventListener('submit', functi
     }
     console.log('Training parameters:', params);
     // Here you would typically send these parameters to your backend
+});
+
+// Function to update architecture diagram
+function updateArchitectureDiagram() {
+    // Get the network type from the page title
+    const networkType = document.querySelector('h2').textContent.toLowerCase().trim();
+    console.log('Network Type:', networkType); // Debug log
+    
+    const diagramContainer = document.getElementById('architectureDiagram');
+    
+    // Map common network type names to our diagram keys
+    const networkTypeMap = {
+        'feedforward neural network (fnn)': 'fnn',
+        'feedforward neural network': 'fnn',
+        'fnn': 'fnn',
+        'convolutional neural network (cnn)': 'cnn',
+        'convolutional neural network': 'cnn',
+        'cnn': 'cnn',
+        'recurrent neural network (rnn)': 'rnn',
+        'recurrent neural network': 'rnn',
+        'rnn': 'rnn',
+        'transformer': 'transformer',
+        'autoencoder': 'autoencoder',
+        'vae': 'vae',
+        'gan': 'gan',
+        'pinn': 'pinn',
+        'graph neural network (gnn)': 'gnn',
+        'graph neural network': 'gnn',
+        'gnn': 'gnn',
+        'spiking neural network (snn)': 'snn',
+        'spiking neural network': 'snn',
+        'snn': 'snn',
+        'neural odes': 'neural_odes',
+        'neural ode': 'neural_odes',
+        'deep belief networks (dbn)': 'dbn',
+        'deep belief network': 'dbn',
+        'dbn': 'dbn',
+        'radial basis function network (rbfn)': 'rbfn',
+        'radial basis function network': 'rbfn',
+        'rbfn': 'rbfn'
+    };
+    
+    // Try to find a matching diagram key
+    let diagramKey = null;
+    for (const [key, value] of Object.entries(networkTypeMap)) {
+        if (networkType.includes(key)) {
+            diagramKey = value;
+            break;
+        }
+    }
+    
+    console.log('Diagram Key:', diagramKey); // Debug log
+    
+    if (diagramKey && window.architectureDiagrams[diagramKey]) {
+        diagramContainer.innerHTML = window.architectureDiagrams[diagramKey];
+    } else {
+        console.log('Available diagrams:', Object.keys(window.architectureDiagrams)); // Debug log
+        diagramContainer.innerHTML = `
+            <div class="alert alert-info">
+                <p class="mb-0">Architecture diagram not available for "${networkType}".</p>
+                <small class="text-muted">Available types: ${Object.keys(window.architectureDiagrams).join(', ')}</small>
+            </div>`;
+    }
+}
+
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    updateArchitectureDiagram();
+    // ... existing code ...
 });
 </script>
 {% endblock %}
