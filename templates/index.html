@@ -2,68 +2,270 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="mb-4">Dashboard Overview</h2>
-            
-            <!-- Statistics Row -->
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="stat-value">4</div>
-                        <div class="stat-label">ML Tasks</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <div class="stat-value">3</div>
-                        <div class="stat-label">Neural Networks</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="stat-value">85%</div>
-                        <div class="stat-label">Model Accuracy</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="stat-value">2.5s</div>
-                        <div class="stat-label">Avg. Inference Time</div>
+    <!-- Welcome Section -->
+    <div class="welcome-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-4 mb-3">Welcome to Uninet ML</h1>
+                <p class="lead text-muted">Your comprehensive machine learning platform for advanced AI solutions</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="quick-stats p-3 bg-white rounded shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">System Status</span>
+                        <span class="badge bg-success">Online</span>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Charts Row -->
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="chart-container">
-                        <h4>Model Performance</h4>
-                        <canvas id="performanceChart"></canvas>
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card stat-card bg-gradient-primary text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">ML Tasks</h6>
+                            <h2 class="mt-2 mb-0">6</h2>
+                            <small>Available Tasks</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-brain fa-2x"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="chart-container">
-                        <h4>Resource Usage</h4>
-                        <canvas id="resourceChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card bg-gradient-success text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Neural Networks</h6>
+                            <h2 class="mt-2 mb-0">4</h2>
+                            <small>Network Types</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-network-wired fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card bg-gradient-info text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Performance</h6>
+                            <h2 class="mt-2 mb-0">98%</h2>
+                            <small>Average Accuracy</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card bg-gradient-warning text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Processing</h6>
+                            <h2 class="mt-2 mb-0">2.5s</h2>
+                            <small>Average Time</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts and Activity Section -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-chart-line text-primary me-2"></i>
+                        Model Performance
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="performanceChart" height="300"></canvas>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-history text-primary me-2"></i>
+                        Recent Activity
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Classification Model Training</h6>
+                                    <p class="mb-0 text-muted">Completed training of ResNet50 model</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-success">95%</span>
+                                    <small class="d-block text-muted">3 minutes ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Data Preprocessing</h6>
+                                    <p class="mb-0 text-muted">Processed 10,000 images for training</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-info">Completed</span>
+                                    <small class="d-block text-muted">1 hour ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Model Deployment</h6>
+                                    <p class="mb-0 text-muted">Deployed new regression model</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-primary">Live</span>
+                                    <small class="d-block text-muted">2 hours ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-chart-pie text-primary me-2"></i>
+                        Resource Usage
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="resourceChart" height="250"></canvas>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-tachometer-alt text-primary me-2"></i>
+                        System Metrics
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <label class="form-label d-flex justify-content-between">
+                            <span>CPU Usage</span>
+                            <span class="text-primary">65%</span>
+                        </label>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label d-flex justify-content-between">
+                            <span>Memory Usage</span>
+                            <span class="text-success">45%</span>
+                        </label>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label d-flex justify-content-between">
+                            <span>GPU Usage</span>
+                            <span class="text-info">80%</span>
+                        </label>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 80%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .welcome-section {
+        padding: 2rem 0;
+    }
+    
+    .stat-card {
+        border: none;
+        transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #4a90e2, #357abd);
+    }
+    
+    .bg-gradient-success {
+        background: linear-gradient(45deg, #2ecc71, #27ae60);
+    }
+    
+    .bg-gradient-info {
+        background: linear-gradient(45deg, #3498db, #2980b9);
+    }
+    
+    .bg-gradient-warning {
+        background: linear-gradient(45deg, #f1c40f, #f39c12);
+    }
+    
+    .stat-icon {
+        opacity: 0.8;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .card-header {
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 1rem;
+    }
+    
+    .list-group-item {
+        border-left: none;
+        border-right: none;
+        padding: 1rem;
+    }
+    
+    .list-group-item:first-child {
+        border-top: none;
+    }
+    
+    .progress {
+        border-radius: 5px;
+        background-color: #f5f6fa;
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -74,10 +276,12 @@
         data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
             datasets: [{
-                label: 'Accuracy',
+                label: 'Model Accuracy',
                 data: [75, 78, 82, 80, 85, 88],
-                borderColor: '#3498db',
-                tension: 0.4
+                borderColor: '#4a90e2',
+                backgroundColor: 'rgba(74, 144, 226, 0.1)',
+                tension: 0.4,
+                fill: true
             }]
         },
         options: {
@@ -85,6 +289,13 @@
             plugins: {
                 legend: {
                     position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 70,
+                    max: 100
                 }
             }
         }
@@ -99,20 +310,22 @@
             datasets: [{
                 data: [30, 45, 15, 10],
                 backgroundColor: [
-                    '#3498db',
+                    '#4a90e2',
                     '#2ecc71',
-                    '#e74c3c',
+                    '#3498db',
                     '#f1c40f'
-                ]
+                ],
+                borderWidth: 0
             }]
         },
         options: {
             responsive: true,
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'bottom'
                 }
-            }
+            },
+            cutout: '70%'
         }
     });
 </script>
