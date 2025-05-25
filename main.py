@@ -451,5 +451,544 @@ model = GNN()""",
     }
 }
 
+# Neural Network Data
+NEURAL_NETWORK_DATA = {
+    "fnn": {
+        "name": "Feedforward Neural Network (FNN)",
+        "description": "Basic dense network for structured data",
+        "overview": "Feedforward Neural Networks are the most basic type of neural network architecture. They consist of an input layer, one or more hidden layers, and an output layer. Each layer is fully connected to the next layer, and information flows in one direction - from input to output.",
+        "use_cases": [
+            "Structured Data Analysis",
+            "Tabular Data Processing",
+            "Basic Pattern Recognition"
+        ],
+        "architecture": "Input Layer → Hidden Layers → Output Layer",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class FNN(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, output_size)
+        )
+    
+    def forward(self, x):
+        return self.net(x)
+
+# Create model
+model = FNN(input_size=10, hidden_size=64, output_size=2)"""
+    },
+    "cnn": {
+        "name": "Convolutional Neural Network (CNN)",
+        "description": "Specialized for spatial data processing",
+        "overview": "Convolutional Neural Networks are designed to process data with a grid-like topology, such as images. They use convolutional layers to automatically learn spatial hierarchies of features, making them particularly effective for image recognition and computer vision tasks.",
+        "use_cases": [
+            "Image Classification",
+            "Object Detection",
+            "Image Segmentation",
+            "Video Analysis"
+        ],
+        "architecture": "Convolutional Layers → Pooling → Fully Connected",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class CNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv_layers = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.fc_layers = nn.Sequential(
+            nn.Linear(64 * 8 * 8, 128),
+            nn.ReLU(),
+            nn.Linear(128, 10)
+        )
+    
+    def forward(self, x):
+        x = self.conv_layers(x)
+        x = x.view(x.size(0), -1)
+        return self.fc_layers(x)
+
+# Create model
+model = CNN()"""
+    },
+    "rnn": {
+        "name": "Recurrent Neural Network (RNN)",
+        "description": "Designed for sequential data processing",
+        "overview": "Recurrent Neural Networks are designed to process sequences of data. They maintain an internal state (memory) that captures information about the sequence seen so far, making them suitable for tasks involving time series or natural language processing.",
+        "use_cases": [
+            "Natural Language Processing",
+            "Time Series Analysis",
+            "Speech Recognition",
+            "Music Generation"
+        ],
+        "architecture": "LSTM/GRU Cells → Recurrent Connections",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class RNN(nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, output_size):
+        super().__init__()
+        self.hidden_size = hidden_size
+        self.num_layers = num_layers
+        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
+        self.fc = nn.Linear(hidden_size, output_size)
+    
+    def forward(self, x):
+        h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(x.device)
+        c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(x.device)
+        out, _ = self.lstm(x, (h0, c0))
+        out = self.fc(out[:, -1, :])
+        return out
+
+# Create model
+model = RNN(input_size=10, hidden_size=64, num_layers=2, output_size=2)"""
+    },
+    "transformer": {
+        "name": "Transformer",
+        "description": "Attention-based architecture for sequence processing",
+        "overview": "Transformers are a type of neural network architecture that uses self-attention mechanisms to process sequences of data. They have revolutionized natural language processing and are now being applied to various other domains.",
+        "use_cases": [
+            "Machine Translation",
+            "Text Generation",
+            "Question Answering",
+            "Image Recognition (ViT)"
+        ],
+        "architecture": "Self-Attention → Feed Forward → Layer Norm",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class Transformer(nn.Module):
+    def __init__(self, d_model, nhead, num_layers):
+        super().__init__()
+        self.encoder_layer = nn.TransformerEncoderLayer(d_model, nhead)
+        self.transformer_encoder = nn.TransformerEncoder(self.encoder_layer, num_layers)
+        self.fc = nn.Linear(d_model, 10)
+    
+    def forward(self, src):
+        output = self.transformer_encoder(src)
+        return self.fc(output)
+
+# Create model
+model = Transformer(d_model=512, nhead=8, num_layers=6)"""
+    },
+    "autoencoder": {
+        "name": "Autoencoder",
+        "description": "Learns compressed representations of data",
+        "overview": "Autoencoders are neural networks designed to learn efficient representations of data through an unsupervised learning process. They consist of an encoder that compresses the input and a decoder that reconstructs the input from the compressed representation.",
+        "use_cases": [
+            "Data Compression",
+            "Feature Learning",
+            "Noise Reduction",
+            "Anomaly Detection"
+        ],
+        "architecture": "Encoder → Latent Space → Decoder",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class Autoencoder(nn.Module):
+    def __init__(self, input_size, hidden_size):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(input_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, hidden_size // 2)
+        )
+        self.decoder = nn.Sequential(
+            nn.Linear(hidden_size // 2, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, input_size)
+        )
+    
+    def forward(self, x):
+        x = self.encoder(x)
+        return self.decoder(x)
+
+# Create model
+model = Autoencoder(input_size=784, hidden_size=128)"""
+    },
+    "vae": {
+        "name": "Variational Autoencoder (VAE)",
+        "description": "Probabilistic generative model",
+        "overview": "Variational Autoencoders are a type of generative model that learns to encode data into a probability distribution rather than a single point. This allows them to generate new data samples by sampling from the learned distribution.",
+        "use_cases": [
+            "Image Generation",
+            "Data Augmentation",
+            "Feature Learning",
+            "Unsupervised Learning"
+        ],
+        "architecture": "Encoder → Latent Distribution → Decoder",
+        "implementation_code": """import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class VAE(nn.Module):
+    def __init__(self, input_size, hidden_size, latent_size):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(input_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, hidden_size)
+        )
+        self.fc_mu = nn.Linear(hidden_size, latent_size)
+        self.fc_var = nn.Linear(hidden_size, latent_size)
+        self.decoder = nn.Sequential(
+            nn.Linear(latent_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, input_size),
+            nn.Sigmoid()
+        )
+    
+    def encode(self, x):
+        h = self.encoder(x)
+        return self.fc_mu(h), self.fc_var(h)
+    
+    def reparameterize(self, mu, logvar):
+        std = torch.exp(0.5 * logvar)
+        eps = torch.randn_like(std)
+        return mu + eps * std
+    
+    def decode(self, z):
+        return self.decoder(z)
+    
+    def forward(self, x):
+        mu, logvar = self.encode(x)
+        z = self.reparameterize(mu, logvar)
+        return self.decode(z), mu, logvar
+
+# Create model
+model = VAE(input_size=784, hidden_size=256, latent_size=32)"""
+    },
+    "gan": {
+        "name": "Generative Adversarial Network (GAN)",
+        "description": "Competing networks for data generation",
+        "overview": "GANs consist of two neural networks: a generator that creates synthetic data and a discriminator that tries to distinguish between real and synthetic data. Through adversarial training, the generator learns to create increasingly realistic data.",
+        "use_cases": [
+            "Image Generation",
+            "Style Transfer",
+            "Data Augmentation",
+            "Super Resolution"
+        ],
+        "architecture": "Generator → Discriminator → Adversarial Training",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class Generator(nn.Module):
+    def __init__(self, latent_size):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(latent_size, 256),
+            nn.LeakyReLU(0.2),
+            nn.Linear(256, 512),
+            nn.LeakyReLU(0.2),
+            nn.Linear(512, 784),
+            nn.Tanh()
+        )
+    
+    def forward(self, x):
+        return self.net(x)
+
+class Discriminator(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(784, 512),
+            nn.LeakyReLU(0.2),
+            nn.Linear(512, 256),
+            nn.LeakyReLU(0.2),
+            nn.Linear(256, 1),
+            nn.Sigmoid()
+        )
+    
+    def forward(self, x):
+        return self.net(x)
+
+# Create models
+generator = Generator(latent_size=100)
+discriminator = Discriminator()"""
+    },
+    "rbfn": {
+        "name": "Radial Basis Function Network (RBFN)",
+        "description": "Uses radial basis functions for pattern recognition",
+        "overview": "RBFNs are a type of neural network that uses radial basis functions as activation functions. They are particularly effective for function approximation and pattern recognition tasks.",
+        "use_cases": [
+            "Function Approximation",
+            "Pattern Recognition",
+            "Time Series Prediction",
+            "Control Systems"
+        ],
+        "architecture": "Input → RBF Layer → Output",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class RBFN(nn.Module):
+    def __init__(self, input_size, num_centers, output_size):
+        super().__init__()
+        self.centers = nn.Parameter(torch.randn(num_centers, input_size))
+        self.beta = nn.Parameter(torch.ones(num_centers))
+        self.linear = nn.Linear(num_centers, output_size)
+    
+    def forward(self, x):
+        distances = torch.cdist(x, self.centers)
+        rbf = torch.exp(-self.beta * distances ** 2)
+        return self.linear(rbf)
+
+# Create model
+model = RBFN(input_size=10, num_centers=20, output_size=2)"""
+    },
+    "som": {
+        "name": "Self-Organizing Maps (SOM)",
+        "description": "Unsupervised learning for dimensionality reduction",
+        "overview": "SOMs are a type of neural network that uses competitive learning to create a low-dimensional representation of high-dimensional data. They are particularly useful for data visualization and clustering.",
+        "use_cases": [
+            "Data Visualization",
+            "Pattern Recognition",
+            "Document Organization",
+            "Image Processing"
+        ],
+        "architecture": "Competitive Learning → Neighborhood Preservation",
+        "implementation_code": """import numpy as np
+from minisom import MiniSom
+
+class SOM:
+    def __init__(self, input_size, map_size):
+        self.som = MiniSom(map_size[0], map_size[1], input_size)
+    
+    def train(self, data, num_iterations):
+        self.som.train_random(data, num_iterations)
+    
+    def get_winner(self, x):
+        return self.som.winner(x)
+
+# Create model
+model = SOM(input_size=10, map_size=(10, 10))"""
+    },
+    "dbn": {
+        "name": "Deep Belief Networks (DBN)",
+        "description": "Layer-wise pre-trained networks",
+        "overview": "DBNs are a type of neural network that consists of multiple layers of Restricted Boltzmann Machines (RBMs). They are trained in a greedy, layer-wise manner and can be fine-tuned using backpropagation.",
+        "use_cases": [
+            "Feature Learning",
+            "Pre-training",
+            "Classification",
+            "Dimensionality Reduction"
+        ],
+        "architecture": "RBM Layers → Fine-tuning",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class RBM(nn.Module):
+    def __init__(self, visible_size, hidden_size):
+        super().__init__()
+        self.W = nn.Parameter(torch.randn(visible_size, hidden_size))
+        self.visible_bias = nn.Parameter(torch.zeros(visible_size))
+        self.hidden_bias = nn.Parameter(torch.zeros(hidden_size))
+    
+    def forward(self, v):
+        h = torch.sigmoid(torch.matmul(v, self.W) + self.hidden_bias)
+        v_recon = torch.sigmoid(torch.matmul(h, self.W.t()) + self.visible_bias)
+        return v_recon
+
+class DBN(nn.Module):
+    def __init__(self, layer_sizes):
+        super().__init__()
+        self.rbms = nn.ModuleList([
+            RBM(layer_sizes[i], layer_sizes[i+1])
+            for i in range(len(layer_sizes)-1)
+        ])
+    
+    def forward(self, x):
+        for rbm in self.rbms:
+            x = rbm(x)
+        return x
+
+# Create model
+model = DBN([784, 500, 200, 10])"""
+    },
+    "pinn": {
+        "name": "Physics-Informed Neural Network (PINN)",
+        "description": "Embeds physical laws into neural networks",
+        "overview": "PINNs are neural networks that incorporate physical laws and constraints into their training process. They are particularly useful for solving differential equations and modeling physical systems.",
+        "use_cases": [
+            "Fluid Dynamics",
+            "Quantum Mechanics",
+            "Climate Modeling",
+            "Material Science"
+        ],
+        "architecture": "Neural Network + Physical Constraints",
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class PINN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 20),
+            nn.Tanh(),
+            nn.Linear(20, 20),
+            nn.Tanh(),
+            nn.Linear(20, 1)
+        )
+    
+    def forward(self, x, t):
+        inputs = torch.cat([x, t], dim=1)
+        return self.net(inputs)
+    
+    def compute_derivatives(self, x, t):
+        inputs = torch.cat([x, t], dim=1)
+        inputs.requires_grad_(True)
+        u = self.net(inputs)
+        u_t = torch.autograd.grad(u, t, grad_outputs=torch.ones_like(u))[0]
+        u_x = torch.autograd.grad(u, x, grad_outputs=torch.ones_like(u))[0]
+        return u, u_t, u_x
+
+# Create model
+model = PINN()"""
+    },
+    "neural_ode": {
+        "name": "Neural ODEs",
+        "description": "Models continuous dynamics using neural networks",
+        "overview": "Neural ODEs are a type of neural network that models continuous-time dynamics using ordinary differential equations. They are particularly useful for modeling time series and dynamical systems.",
+        "use_cases": [
+            "Time Series Prediction",
+            "Dynamical Systems",
+            "Continuous-time Models",
+            "Irregular Time Series"
+        ],
+        "architecture": "Neural Network + ODE Solver",
+        "implementation_code": """import torch
+import torch.nn as nn
+from torchdiffeq import odeint
+
+class ODEFunc(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 50),
+            nn.Tanh(),
+            nn.Linear(50, 2)
+        )
+    
+    def forward(self, t, y):
+        return self.net(y)
+
+class NeuralODE(nn.Module):
+    def __init__(self, func):
+        super().__init__()
+        self.func = func
+    
+    def forward(self, y0, t):
+        solution = odeint(self.func, y0, t)
+        return solution
+
+# Create model
+func = ODEFunc()
+model = NeuralODE(func)"""
+    },
+    "gnn": {
+        "name": "Graph Neural Network (GNN)",
+        "description": "Operates on graph-structured data",
+        "overview": "GNNs are neural networks designed to operate on graph-structured data. They use message passing to aggregate information from neighboring nodes and update node representations.",
+        "use_cases": [
+            "Social Network Analysis",
+            "Molecular Structure",
+            "Recommendation Systems",
+            "Knowledge Graphs"
+        ],
+        "architecture": "Graph Convolution → Message Passing",
+        "implementation_code": """import torch
+import torch.nn as nn
+import torch_geometric.nn as gnn
+
+class GNN(nn.Module):
+    def __init__(self, in_channels, hidden_channels, out_channels):
+        super().__init__()
+        self.conv1 = gnn.GCNConv(in_channels, hidden_channels)
+        self.conv2 = gnn.GCNConv(hidden_channels, out_channels)
+    
+    def forward(self, x, edge_index):
+        x = self.conv1(x, edge_index)
+        x = torch.relu(x)
+        x = self.conv2(x, edge_index)
+        return x
+
+# Create model
+model = GNN(in_channels=10, hidden_channels=64, out_channels=2)"""
+    },
+    "snn": {
+        "name": "Spiking Neural Network (SNN)",
+        "description": "Inspired by biological neurons",
+        "overview": "SNNs are neural networks that use discrete spikes to transmit information, similar to biological neurons. They are particularly energy-efficient and suitable for neuromorphic computing.",
+        "use_cases": [
+            "Energy-efficient Computing",
+            "Real-time Systems",
+            "Neuromorphic Hardware",
+            "Event-based Processing"
+        ],
+        "architecture": "Spiking Neurons → Temporal Dynamics",
+        "implementation_code": """import torch
+import torch.nn as nn
+import snntorch as snn
+
+class SNN(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super().__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.lif1 = snn.Leaky(beta=0.9)
+        self.fc2 = nn.Linear(hidden_size, output_size)
+        self.lif2 = snn.Leaky(beta=0.9)
+    
+    def forward(self, x):
+        mem1 = self.lif1.init_leaky()
+        mem2 = self.lif2.init_leaky()
+        spk2_rec = []
+        mem2_rec = []
+        
+        for step in range(x.size(0)):
+            cur1 = self.fc1(x[step])
+            spk1, mem1 = self.lif1(cur1, mem1)
+            cur2 = self.fc2(spk1)
+            spk2, mem2 = self.lif2(cur2, mem2)
+            spk2_rec.append(spk2)
+            mem2_rec.append(mem2)
+        
+        return torch.stack(spk2_rec, dim=0), torch.stack(mem2_rec, dim=0)
+
+# Create model
+model = SNN(input_size=10, hidden_size=64, output_size=2)"""
+    }
+}
+
+@app.get("/neural-networks/{network_id}", response_class=HTMLResponse)
+async def neural_network_detail(request: Request, network_id: str):
+    user = await get_current_user(request)
+    if not user:
+        return RedirectResponse(url="/login", status_code=status.HTTP_302_FOUND)
+    
+    if network_id not in NEURAL_NETWORK_DATA:
+        return templates.TemplateResponse(
+            "404.html",
+            {"request": request, "user": user}
+        )
+    
+    return templates.TemplateResponse(
+        "neural_network_detail.html",
+        {
+            "request": request,
+            "user": user,
+            **NEURAL_NETWORK_DATA[network_id]
+        }
+    )
+
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
