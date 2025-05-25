@@ -1030,8 +1030,8 @@ async def neural_network_detail(request: Request, network_id: str):
             {"id": "dbn_pretraining", "name": "Pre-training"}
         ],
         "pinn": [
-            {"id": "pinn_differential", "name": "Differential Equation Solving"},
-            {"id": "pinn_simulation", "name": "Physics Simulation"}
+            {"id": "pinn_physics", "name": "Physics-based Regression"},
+            {"id": "pinn_inverse", "name": "Inverse Modeling"}
         ],
         "neural_ode": [
             {"id": "neural_ode_timeseries", "name": "Time Series"},
