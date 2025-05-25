@@ -64,6 +64,13 @@
             border-radius: 8px;
             margin-top: 10px;
         }
+
+        .badge {
+            font-size: 0.8em;
+            padding: 0.4em 0.8em;
+            margin-right: 0.5em;
+            margin-bottom: 0.5em;
+        }
     </style>
 </head>
 <body>
@@ -89,12 +96,42 @@
                 </div>
 
                 <div class="row">
+                    <!-- Feedforward Neural Network -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-project-diagram me-2"></i>Feedforward Neural Network (FNN)</h5>
+                                <p class="text-muted">Basic dense network for structured data</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Classification</span>
+                                    <span class="badge bg-primary">Regression</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Structured Data Analysis</li>
+                                    <li>Tabular Data Processing</li>
+                                    <li>Basic Pattern Recognition</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Input Layer → Hidden Layers → Output Layer</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- CNN -->
                     <div class="col-md-6 mb-4">
                         <div class="nn-card">
                             <div class="card-body">
                                 <h5><i class="fas fa-network-wired me-2"></i>Convolutional Neural Network (CNN)</h5>
-                                <p class="text-muted">Specialized for processing grid-like data</p>
+                                <p class="text-muted">Specialized for spatial data processing</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Classification</span>
+                                    <span class="badge bg-primary">Segmentation</span>
+                                    <span class="badge bg-primary">Regression</span>
+                                </div>
                                 <hr>
                                 <h6>Applications:</h6>
                                 <ul>
@@ -117,6 +154,11 @@
                             <div class="card-body">
                                 <h5><i class="fas fa-sync me-2"></i>Recurrent Neural Network (RNN)</h5>
                                 <p class="text-muted">Designed for sequential data processing</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Sequence Modeling</span>
+                                    <span class="badge bg-primary">Time Series</span>
+                                    <span class="badge bg-primary">NLP</span>
+                                </div>
                                 <hr>
                                 <h6>Applications:</h6>
                                 <ul>
@@ -139,16 +181,73 @@
                             <div class="card-body">
                                 <h5><i class="fas fa-brain me-2"></i>Transformer</h5>
                                 <p class="text-muted">Attention-based architecture for sequence processing</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">NLP</span>
+                                    <span class="badge bg-primary">Sequence-to-Sequence</span>
+                                    <span class="badge bg-primary">Time Series</span>
+                                </div>
                                 <hr>
                                 <h6>Applications:</h6>
                                 <ul>
                                     <li>Machine Translation</li>
                                     <li>Text Generation</li>
                                     <li>Question Answering</li>
-                                    <li>Image Recognition</li>
+                                    <li>Image Recognition (ViT)</li>
                                 </ul>
                                 <div class="architecture-diagram">
                                     <small class="text-muted">Architecture: Self-Attention → Feed Forward → Layer Norm</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Autoencoder -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-compress-alt me-2"></i>Autoencoder</h5>
+                                <p class="text-muted">Learns compressed representations of data</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Dimensionality Reduction</span>
+                                    <span class="badge bg-primary">Anomaly Detection</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Data Compression</li>
+                                    <li>Feature Learning</li>
+                                    <li>Noise Reduction</li>
+                                    <li>Anomaly Detection</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Encoder → Latent Space → Decoder</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VAE -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-random me-2"></i>Variational Autoencoder (VAE)</h5>
+                                <p class="text-muted">Probabilistic generative model</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Generative Modeling</span>
+                                    <span class="badge bg-primary">Feature Learning</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Image Generation</li>
+                                    <li>Data Augmentation</li>
+                                    <li>Feature Learning</li>
+                                    <li>Unsupervised Learning</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Encoder → Latent Distribution → Decoder</small>
                                 </div>
                                 <button class="btn btn-primary mt-3">Learn More</button>
                             </div>
@@ -160,7 +259,10 @@
                         <div class="nn-card">
                             <div class="card-body">
                                 <h5><i class="fas fa-magic me-2"></i>Generative Adversarial Network (GAN)</h5>
-                                <p class="text-muted">Generative model with competing networks</p>
+                                <p class="text-muted">Competing networks for data generation</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Generative Modeling</span>
+                                </div>
                                 <hr>
                                 <h6>Applications:</h6>
                                 <ul>
@@ -171,6 +273,188 @@
                                 </ul>
                                 <div class="architecture-diagram">
                                     <small class="text-muted">Architecture: Generator → Discriminator → Adversarial Training</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RBFN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-circle-nodes me-2"></i>Radial Basis Function Network (RBFN)</h5>
+                                <p class="text-muted">Uses radial basis functions for pattern recognition</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Classification</span>
+                                    <span class="badge bg-primary">Regression</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Function Approximation</li>
+                                    <li>Pattern Recognition</li>
+                                    <li>Time Series Prediction</li>
+                                    <li>Control Systems</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Input → RBF Layer → Output</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SOM -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-border-all me-2"></i>Self-Organizing Maps (SOM)</h5>
+                                <p class="text-muted">Unsupervised learning for dimensionality reduction</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Clustering</span>
+                                    <span class="badge bg-primary">Visualization</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Data Visualization</li>
+                                    <li>Pattern Recognition</li>
+                                    <li>Document Organization</li>
+                                    <li>Image Processing</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Competitive Learning → Neighborhood Preservation</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DBN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-layer-group me-2"></i>Deep Belief Networks (DBN)</h5>
+                                <p class="text-muted">Layer-wise pre-trained networks</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Feature Extraction</span>
+                                    <span class="badge bg-primary">Pre-training</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Feature Learning</li>
+                                    <li>Pre-training</li>
+                                    <li>Classification</li>
+                                    <li>Dimensionality Reduction</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: RBM Layers → Fine-tuning</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PINN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-atom me-2"></i>Physics-Informed Neural Network (PINN)</h5>
+                                <p class="text-muted">Embeds physical laws into neural networks</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Physics-based Regression</span>
+                                    <span class="badge bg-primary">Inverse Modeling</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Fluid Dynamics</li>
+                                    <li>Quantum Mechanics</li>
+                                    <li>Climate Modeling</li>
+                                    <li>Material Science</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Neural Network + Physical Constraints</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Neural ODEs -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-wave-square me-2"></i>Neural ODEs</h5>
+                                <p class="text-muted">Models continuous dynamics using neural networks</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Time Series</span>
+                                    <span class="badge bg-primary">Dynamic Systems</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Time Series Prediction</li>
+                                    <li>Dynamical Systems</li>
+                                    <li>Continuous-time Models</li>
+                                    <li>Irregular Time Series</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Neural Network + ODE Solver</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GNN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-project-diagram me-2"></i>Graph Neural Network (GNN)</h5>
+                                <p class="text-muted">Operates on graph-structured data</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Node Classification</span>
+                                    <span class="badge bg-primary">Edge Classification</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Social Network Analysis</li>
+                                    <li>Molecular Structure</li>
+                                    <li>Recommendation Systems</li>
+                                    <li>Knowledge Graphs</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Graph Convolution → Message Passing</small>
+                                </div>
+                                <button class="btn btn-primary mt-3">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SNN -->
+                    <div class="col-md-6 mb-4">
+                        <div class="nn-card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-bolt me-2"></i>Spiking Neural Network (SNN)</h5>
+                                <p class="text-muted">Inspired by biological neurons</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Neuromorphic Computing</span>
+                                    <span class="badge bg-primary">Event-driven Systems</span>
+                                </div>
+                                <hr>
+                                <h6>Applications:</h6>
+                                <ul>
+                                    <li>Energy-efficient Computing</li>
+                                    <li>Real-time Systems</li>
+                                    <li>Neuromorphic Hardware</li>
+                                    <li>Event-based Processing</li>
+                                </ul>
+                                <div class="architecture-diagram">
+                                    <small class="text-muted">Architecture: Spiking Neurons → Temporal Dynamics</small>
                                 </div>
                                 <button class="btn btn-primary mt-3">Learn More</button>
                             </div>

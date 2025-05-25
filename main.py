@@ -263,5 +263,193 @@ async def settings(request: Request):
         {"request": request, "user": user}
     )
 
+# Task data for ML tasks
+TASK_DATA = {
+    "classification": {
+        "task_name": "Classification",
+        "task_description": "Predicting discrete class labels from input data",
+        "overview": "Classification is a supervised learning task where the goal is to predict the category or class of an input based on its features. It's one of the most common machine learning tasks, used in applications ranging from spam detection to medical diagnosis.",
+        "use_cases": [
+            "Spam Detection: Identifying unwanted emails",
+            "Image Recognition: Classifying objects in images",
+            "Sentiment Analysis: Determining the sentiment of text",
+            "Disease Diagnosis: Predicting medical conditions"
+        ],
+        "implementation_code": """from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+# Prepare data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create and train model
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+# Make predictions
+predictions = model.predict(X_test)""",
+        "best_practices": [
+            "Ensure balanced classes or use appropriate sampling techniques",
+            "Perform feature engineering to improve model performance",
+            "Use cross-validation to prevent overfitting",
+            "Monitor model performance with appropriate metrics (accuracy, precision, recall, F1)"
+        ]
+    },
+    "regression": {
+        "task_name": "Regression",
+        "task_description": "Predicting continuous values from input data",
+        "overview": "Regression is a supervised learning task that predicts continuous numerical values. It's widely used in forecasting, trend analysis, and any scenario where you need to predict a quantity.",
+        "use_cases": [
+            "House Price Prediction: Estimating property values",
+            "Temperature Forecasting: Predicting weather patterns",
+            "Stock Price Prediction: Forecasting market trends",
+            "Demand Forecasting: Predicting product demand"
+        ],
+        "implementation_code": """from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+# Prepare data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create and train model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Make predictions
+predictions = model.predict(X_test)""",
+        "best_practices": [
+            "Check for linearity between features and target",
+            "Handle outliers appropriately",
+            "Use regularization to prevent overfitting",
+            "Evaluate model performance with RMSE, MAE, and R² metrics"
+        ]
+    },
+    "clustering": {
+        "task_name": "Clustering",
+        "task_description": "Grouping similar data points together",
+        "overview": "Clustering is an unsupervised learning task that groups similar data points together without predefined labels. It's useful for discovering patterns and structures in data.",
+        "use_cases": [
+            "Customer Segmentation: Grouping customers by behavior",
+            "Gene Expression Analysis: Identifying gene patterns",
+            "Document Clustering: Organizing similar documents",
+            "Image Segmentation: Dividing images into meaningful regions"
+        ],
+        "implementation_code": """from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# Scale the data
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Create and fit model
+model = KMeans(n_clusters=3)
+clusters = model.fit_predict(X_scaled)""",
+        "best_practices": [
+            "Preprocess and scale data appropriately",
+            "Choose the right number of clusters using elbow method or silhouette analysis",
+            "Handle high-dimensional data with dimensionality reduction",
+            "Validate clustering results with domain knowledge"
+        ]
+    },
+    "dimensionality-reduction": {
+        "task_name": "Dimensionality Reduction",
+        "task_description": "Reducing feature space while preserving information",
+        "overview": "Dimensionality reduction techniques help reduce the number of features in a dataset while maintaining important information. This is crucial for handling high-dimensional data and improving model performance.",
+        "use_cases": [
+            "Feature Compression: Reducing data storage requirements",
+            "Data Visualization: Visualizing high-dimensional data",
+            "Noise Reduction: Removing irrelevant features",
+            "Pattern Recognition: Identifying key patterns in data"
+        ],
+        "implementation_code": """from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+# Scale the data
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Apply PCA
+pca = PCA(n_components=2)
+X_reduced = pca.fit_transform(X_scaled)""",
+        "best_practices": [
+            "Scale data before applying dimensionality reduction",
+            "Choose appropriate number of components based on explained variance",
+            "Consider both linear (PCA) and non-linear (t-SNE) methods",
+            "Validate results by checking reconstruction error"
+        ]
+    },
+    "physics-based-modeling": {
+        "task_name": "Physics-Based Modeling",
+        "task_description": "Incorporating physical laws into neural networks",
+        "overview": "Physics-based modeling combines traditional physics equations with neural networks to create models that respect physical laws while learning from data. This approach is particularly useful in scientific and engineering applications.",
+        "use_cases": [
+            "Fluid Dynamics: Modeling fluid flow and turbulence",
+            "Quantum Mechanics: Predicting quantum states",
+            "Climate Modeling: Simulating climate patterns",
+            "Material Science: Predicting material properties"
+        ],
+        "implementation_code": """import torch
+import torch.nn as nn
+
+class PhysicsInformedNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 20),
+            nn.Tanh(),
+            nn.Linear(20, 20),
+            nn.Tanh(),
+            nn.Linear(20, 1)
+        )
+    
+    def forward(self, x, t):
+        inputs = torch.cat([x, t], dim=1)
+        return self.net(inputs)
+
+# Create model
+model = PhysicsInformedNN()""",
+        "best_practices": [
+            "Incorporate physical constraints in the loss function",
+            "Use appropriate activation functions for the physics domain",
+            "Balance data-driven and physics-based terms",
+            "Validate results against known physical solutions"
+        ]
+    },
+    "graph-based-learning": {
+        "task_name": "Graph-Based Learning",
+        "task_description": "Learning from graph-structured data",
+        "overview": "Graph-based learning deals with data that can be represented as graphs, where nodes represent entities and edges represent relationships. This approach is powerful for analyzing interconnected data.",
+        "use_cases": [
+            "Social Network Analysis: Understanding social connections",
+            "Molecular Structure: Analyzing chemical compounds",
+            "Recommendation Systems: Building user-item networks",
+            "Knowledge Graphs: Representing and reasoning with knowledge"
+        ],
+        "implementation_code": """import torch
+import torch.nn as nn
+import torch_geometric.nn as gnn
+
+class GNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = gnn.GCNConv(in_channels, 16)
+        self.conv2 = gnn.GCNConv(16, out_channels)
+    
+    def forward(self, x, edge_index):
+        x = self.conv1(x, edge_index)
+        x = torch.relu(x)
+        x = self.conv2(x, edge_index)
+        return x
+
+# Create model
+model = GNN()""",
+        "best_practices": [
+            "Choose appropriate graph neural network architecture",
+            "Handle different types of graph structures",
+            "Consider both node and edge features",
+            "Use graph-specific evaluation metrics"
+        ]
+    }
+}
+
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

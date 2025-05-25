@@ -8,10 +8,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #2c3e50;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
             --accent-color: #e74c3c;
-            --background-color: #f5f6fa;
+            --background-color: #f8f9fa;
             --text-color: #2c3e50;
         }
 
@@ -27,7 +27,7 @@
             left: 0;
             height: 100vh;
             width: 250px;
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color);
             padding: 20px;
             color: white;
             z-index: 1000;
@@ -42,7 +42,7 @@
         .sidebar-header h3 {
             margin: 0;
             font-size: 1.5rem;
-            color: var(--primary-color);
+            color: white;
         }
 
         .nav-link {
@@ -56,12 +56,12 @@
         }
 
         .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--secondary-color);
             color: white;
         }
 
         .nav-link.active {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             color: white;
         }
 
