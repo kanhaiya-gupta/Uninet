@@ -17,6 +17,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Mount static files directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # Mount templates directory
 templates = Jinja2Templates(directory="templates")
 
@@ -981,11 +984,75 @@ async def neural_network_detail(request: Request, network_id: str):
             {"request": request, "user": user}
         )
     
+    # Define available tasks for each network type
+    network_tasks = {
+        "fnn": [
+            {"id": "fnn_classification", "name": "Classification"},
+            {"id": "fnn_regression", "name": "Regression"}
+        ],
+        "cnn": [
+            {"id": "cnn_classification", "name": "Image Classification"},
+            {"id": "cnn_segmentation", "name": "Image Segmentation"},
+            {"id": "cnn_detection", "name": "Object Detection"}
+        ],
+        "rnn": [
+            {"id": "rnn_sequence", "name": "Sequence Modeling"},
+            {"id": "rnn_timeseries", "name": "Time Series Prediction"},
+            {"id": "rnn_nlp", "name": "Natural Language Processing"}
+        ],
+        "transformer": [
+            {"id": "transformer_nlp", "name": "Natural Language Processing"},
+            {"id": "transformer_seq2seq", "name": "Sequence-to-Sequence"},
+            {"id": "transformer_timeseries", "name": "Time Series"}
+        ],
+        "autoencoder": [
+            {"id": "autoencoder_compression", "name": "Data Compression"},
+            {"id": "autoencoder_anomaly", "name": "Anomaly Detection"}
+        ],
+        "vae": [
+            {"id": "vae_generation", "name": "Data Generation"},
+            {"id": "vae_feature", "name": "Feature Learning"}
+        ],
+        "gan": [
+            {"id": "gan_generation", "name": "Data Generation"},
+            {"id": "gan_style", "name": "Style Transfer"}
+        ],
+        "rbfn": [
+            {"id": "rbfn_classification", "name": "Classification"},
+            {"id": "rbfn_regression", "name": "Regression"}
+        ],
+        "som": [
+            {"id": "som_clustering", "name": "Clustering"},
+            {"id": "som_visualization", "name": "Data Visualization"}
+        ],
+        "dbn": [
+            {"id": "dbn_feature", "name": "Feature Extraction"},
+            {"id": "dbn_pretraining", "name": "Pre-training"}
+        ],
+        "pinn": [
+            {"id": "pinn_differential", "name": "Differential Equation Solving"},
+            {"id": "pinn_simulation", "name": "Physics Simulation"}
+        ],
+        "neural_ode": [
+            {"id": "neural_ode_timeseries", "name": "Time Series"},
+            {"id": "neural_ode_dynamics", "name": "Dynamic Systems"}
+        ],
+        "gnn": [
+            {"id": "gnn_node", "name": "Node Classification"},
+            {"id": "gnn_edge", "name": "Edge Classification"}
+        ],
+        "snn": [
+            {"id": "snn_neuromorphic", "name": "Neuromorphic Computing"},
+            {"id": "snn_event", "name": "Event-driven Systems"}
+        ]
+    }
+    
     return templates.TemplateResponse(
         "neural_network_detail.html",
         {
             "request": request,
             "user": user,
+            "tasks": network_tasks.get(network_id, []),
             **NEURAL_NETWORK_DATA[network_id]
         }
     )
