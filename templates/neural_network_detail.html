@@ -89,8 +89,6 @@
                                 <label for="taskType" class="form-label">Select Task Type:</label>
                                 <select class="form-select" id="taskType" onchange="updateHyperparameters()">
                                     <option value="">Choose a task...</option>
-                                    <option value="classification">Classification</option>
-                                    <option value="regression">Regression</option>
                                 </select>
                             </div>
                         </div>
@@ -183,8 +181,40 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
+    // Get the network type from the page title
+    const networkType = document.querySelector('h2').textContent.toLowerCase().trim();
+    const networkTypeMap = {
+        'feedforward neural network (fnn)': 'fnn',
+        'feedforward neural network': 'fnn',
+        'fnn': 'fnn',
+        'convolutional neural network (cnn)': 'cnn',
+        'convolutional neural network': 'cnn',
+        'cnn': 'cnn'
+    };
+
+    // Find the matching network type
+    let networkKey = null;
+    for (const [key, value] of Object.entries(networkTypeMap)) {
+        if (networkType.includes(key)) {
+            networkKey = value;
+            break;
+        }
+    }
+
+    // Populate task types based on network type
+    const taskSelect = document.getElementById('taskType');
+    if (networkKey && window.hyperparameters[networkKey]) {
+        const taskTypes = Object.keys(window.hyperparameters[networkKey]);
+        taskTypes.forEach(taskType => {
+            const option = document.createElement('option');
+            option.value = taskType;
+            option.textContent = taskType.charAt(0).toUpperCase() + taskType.slice(1);
+            taskSelect.appendChild(option);
+        });
+    }
+    
     // Add event listener to task selection
-    document.getElementById('taskType').addEventListener('change', updateHyperparameters);
+    taskSelect.addEventListener('change', updateHyperparameters);
 });
 
 function updateHyperparameters() {
@@ -249,8 +279,7 @@ function updateHyperparameters() {
                            min="${param.min || ''}"
                            max="${param.max || ''}"
                            step="${param.step || ''}"
-                           value="${param.default || ''}"
-                           required>
+                           value="${param.default || ''}">
                 </div>`;
         }
     }).join('');

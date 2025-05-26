@@ -196,6 +196,94 @@ const hyperparameters = {
                 "default": 100
             }
         ],
+        "regression": [
+            {
+                "name": "conv_layers",
+                "label": "Number of Convolutional Layers",
+                "type": "number",
+                "min": 1,
+                "max": 10,
+                "default": 3
+            },
+            {
+                "name": "filters",
+                "label": "Number of Filters",
+                "type": "number",
+                "min": 16,
+                "max": 512,
+                "default": 64
+            },
+            {
+                "name": "kernel_size",
+                "label": "Kernel Size",
+                "type": "number",
+                "min": 1,
+                "max": 7,
+                "default": 3
+            },
+            {
+                "name": "pooling",
+                "label": "Pooling Type",
+                "type": "select",
+                "options": [
+                    { value: "max", label: "Max Pooling" },
+                    { value: "avg", label: "Average Pooling" }
+                ],
+                "default": "max"
+            },
+            {
+                "name": "dense_layers",
+                "label": "Number of Dense Layers",
+                "type": "number",
+                "min": 1,
+                "max": 5,
+                "default": 2
+            },
+            {
+                "name": "dense_units",
+                "label": "Dense Layer Units",
+                "type": "number",
+                "min": 32,
+                "max": 512,
+                "default": 128
+            },
+            {
+                "name": "dropout",
+                "label": "Dropout Rate",
+                "type": "number",
+                "min": 0,
+                "max": 0.5,
+                "step": 0.1,
+                "default": 0.2
+            },
+            {
+                "name": "learning_rate",
+                "label": "Learning Rate",
+                "type": "number",
+                "min": 0.0001,
+                "max": 0.1,
+                "step": 0.0001,
+                "default": 0.001
+            },
+            {
+                "name": "batch_size",
+                "label": "Batch Size",
+                "type": "number",
+                "min": 8,
+                "max": 256,
+                "default": 32
+            },
+            {
+                "name": "epochs",
+                "label": "Number of Epochs",
+                "type": "number",
+                "min": 1,
+                "max": 1000,
+                "default": 100
+            }
+        ]
+    },
+    "cnn": {
         "segmentation": [
             {
                 "name": "encoder_layers",
