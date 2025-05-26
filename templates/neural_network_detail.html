@@ -89,9 +89,8 @@
                                 <label for="taskType" class="form-label">Select Task Type:</label>
                                 <select class="form-select" id="taskType" onchange="updateHyperparameters()">
                                     <option value="">Choose a task...</option>
-                                    {% for task in tasks %}
-                                    <option value="{{ task.id }}">{{ task.name }}</option>
-                                    {% endfor %}
+                                    <option value="classification">Classification</option>
+                                    <option value="regression">Regression</option>
                                 </select>
                             </div>
                         </div>
@@ -174,9 +173,20 @@
     }
 </style>
 
-<script src="/static/js/hyperparameters.js"></script>
 <script src="/static/js/architecture_diagrams.js"></script>
 <script>
+// Wait for the hyperparameters.js to load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize hyperparameters if not already done
+    if (!window.hyperparameters) {
+        console.error('Hyperparameters not loaded!');
+        return;
+    }
+    
+    // Add event listener to task selection
+    document.getElementById('taskType').addEventListener('change', updateHyperparameters);
+});
+
 function updateHyperparameters() {
     const taskType = document.getElementById('taskType').value;
     const hyperparametersSection = document.getElementById('hyperparametersSection');
@@ -187,14 +197,38 @@ function updateHyperparameters() {
         return;
     }
 
-    const [networkType, task] = taskType.split('_');
-    const params = window.hyperparameters[networkType][task];
-    
-    if (!params) {
+    // Get the network type from the page title
+    const networkType = document.querySelector('h2').textContent.toLowerCase().trim();
+    const networkTypeMap = {
+        'feedforward neural network (fnn)': 'fnn',
+        'feedforward neural network': 'fnn',
+        'fnn': 'fnn',
+        'convolutional neural network (cnn)': 'cnn',
+        'convolutional neural network': 'cnn',
+        'cnn': 'cnn'
+    };
+
+    // Find the matching network type
+    let networkKey = null;
+    for (const [key, value] of Object.entries(networkTypeMap)) {
+        if (networkType.includes(key)) {
+            networkKey = value;
+            break;
+        }
+    }
+
+    console.log('Network key:', networkKey);
+    console.log('Task type:', taskType);
+    console.log('Available hyperparameters:', window.hyperparameters);
+
+    if (!networkKey || !window.hyperparameters || !window.hyperparameters[networkKey] || !window.hyperparameters[networkKey][taskType]) {
+        console.log('No parameters found for:', networkKey, taskType);
         hyperparametersSection.style.display = 'none';
         return;
     }
 
+    const params = window.hyperparameters[networkKey][taskType];
+    
     hyperparametersContent.innerHTML = params.map(param => {
         if (param.type === 'select') {
             return `

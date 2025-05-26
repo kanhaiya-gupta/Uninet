@@ -1,4 +1,5 @@
-window.hyperparameters = {
+// Define hyperparameters object
+const hyperparameters = {
     "fnn": {
         "classification": [
             {
@@ -1454,4 +1455,8 @@ window.hyperparameters = {
     }
 };
 
+// Make hyperparameters available globally
+window.hyperparameters = hyperparameters;
+
+// Export for module usage
 export default hyperparameters;
