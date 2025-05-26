@@ -281,9 +281,7 @@ const hyperparameters = {
                 "max": 1000,
                 "default": 100
             }
-        ]
-    },
-    "cnn": {
+        ],
         "segmentation": [
             {
                 "name": "encoder_layers",
@@ -321,7 +319,10 @@ const hyperparameters = {
                 "name": "skip_connections",
                 "label": "Use Skip Connections",
                 "type": "select",
-                "options": ["true", "false"],
+                "options": [
+                    { value: "true", label: "Yes" },
+                    { value: "false", label: "No" }
+                ],
                 "default": "true"
             },
             {
@@ -364,7 +365,11 @@ const hyperparameters = {
                 "name": "backbone",
                 "label": "Backbone Network",
                 "type": "select",
-                "options": ["resnet50", "vgg16", "mobilenet"],
+                "options": [
+                    { value: "resnet50", label: "ResNet-50" },
+                    { value: "vgg16", label: "VGG-16" },
+                    { value: "mobilenet", label: "MobileNet" }
+                ],
                 "default": "resnet50"
             },
             {
@@ -503,7 +508,11 @@ const hyperparameters = {
                 "name": "rnn_type",
                 "label": "RNN Type",
                 "type": "select",
-                "options": ["lstm", "gru", "simple"],
+                "options": [
+                    { value: "lstm", label: "LSTM" },
+                    { value: "gru", label: "GRU" },
+                    { value: "simple", label: "Simple RNN" }
+                ],
                 "default": "lstm"
             },
             {
@@ -578,7 +587,11 @@ const hyperparameters = {
                 "name": "rnn_type",
                 "label": "RNN Type",
                 "type": "select",
-                "options": ["lstm", "gru", "simple"],
+                "options": [
+                    { value: "lstm", label: "LSTM" },
+                    { value: "gru", label: "GRU" },
+                    { value: "simple", label: "Simple RNN" }
+                ],
                 "default": "lstm"
             },
             {
@@ -609,7 +622,10 @@ const hyperparameters = {
                 "name": "bidirectional",
                 "label": "Bidirectional",
                 "type": "select",
-                "options": ["true", "false"],
+                "options": [
+                    { value: "true", label: "Yes" },
+                    { value: "false", label: "No" }
+                ],
                 "default": "true"
             },
             {

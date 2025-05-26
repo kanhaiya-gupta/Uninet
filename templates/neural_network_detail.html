@@ -189,7 +189,32 @@ document.addEventListener('DOMContentLoaded', function() {
         'fnn': 'fnn',
         'convolutional neural network (cnn)': 'cnn',
         'convolutional neural network': 'cnn',
-        'cnn': 'cnn'
+        'cnn': 'cnn',
+        'recurrent neural network (rnn)': 'rnn',
+        'recurrent neural network': 'rnn',
+        'rnn': 'rnn',
+        'transformer': 'transformer',
+        'autoencoder': 'autoencoder',
+        'vae': 'vae',
+        'variational autoencoder': 'vae',
+        'gan': 'gan',
+        'generative adversarial network': 'gan',
+        'pinn': 'pinn',
+        'physics-informed neural network': 'pinn',
+        'graph neural network (gnn)': 'gnn',
+        'graph neural network': 'gnn',
+        'gnn': 'gnn',
+        'spiking neural network (snn)': 'snn',
+        'spiking neural network': 'snn',
+        'snn': 'snn',
+        'neural odes': 'neural_odes',
+        'neural ode': 'neural_odes',
+        'deep belief networks (dbn)': 'dbn',
+        'deep belief network': 'dbn',
+        'dbn': 'dbn',
+        'radial basis function network (rbfn)': 'rbfn',
+        'radial basis function network': 'rbfn',
+        'rbfn': 'rbfn'
     };
 
     // Find the matching network type
@@ -200,6 +225,10 @@ document.addEventListener('DOMContentLoaded', function() {
             break;
         }
     }
+
+    console.log('Network Type:', networkType);
+    console.log('Network Key:', networkKey);
+    console.log('Available hyperparameters:', window.hyperparameters);
 
     // Populate task types based on network type
     const taskSelect = document.getElementById('taskType');
@@ -235,7 +264,32 @@ function updateHyperparameters() {
         'fnn': 'fnn',
         'convolutional neural network (cnn)': 'cnn',
         'convolutional neural network': 'cnn',
-        'cnn': 'cnn'
+        'cnn': 'cnn',
+        'recurrent neural network (rnn)': 'rnn',
+        'recurrent neural network': 'rnn',
+        'rnn': 'rnn',
+        'transformer': 'transformer',
+        'autoencoder': 'autoencoder',
+        'vae': 'vae',
+        'variational autoencoder': 'vae',
+        'gan': 'gan',
+        'generative adversarial network': 'gan',
+        'pinn': 'pinn',
+        'physics-informed neural network': 'pinn',
+        'graph neural network (gnn)': 'gnn',
+        'graph neural network': 'gnn',
+        'gnn': 'gnn',
+        'spiking neural network (snn)': 'snn',
+        'spiking neural network': 'snn',
+        'snn': 'snn',
+        'neural odes': 'neural_odes',
+        'neural ode': 'neural_odes',
+        'deep belief networks (dbn)': 'dbn',
+        'deep belief network': 'dbn',
+        'dbn': 'dbn',
+        'radial basis function network (rbfn)': 'rbfn',
+        'radial basis function network': 'rbfn',
+        'rbfn': 'rbfn'
     };
 
     // Find the matching network type
@@ -247,8 +301,8 @@ function updateHyperparameters() {
         }
     }
 
-    console.log('Network key:', networkKey);
-    console.log('Task type:', taskType);
+    console.log('Network Type:', networkType);
+    console.log('Network Key:', networkKey);
     console.log('Available hyperparameters:', window.hyperparameters);
 
     if (!networkKey || !window.hyperparameters || !window.hyperparameters[networkKey] || !window.hyperparameters[networkKey][taskType]) {
@@ -320,8 +374,11 @@ function updateArchitectureDiagram() {
         'transformer': 'transformer',
         'autoencoder': 'autoencoder',
         'vae': 'vae',
+        'variational autoencoder': 'vae',
         'gan': 'gan',
+        'generative adversarial network': 'gan',
         'pinn': 'pinn',
+        'physics-informed neural network': 'pinn',
         'graph neural network (gnn)': 'gnn',
         'graph neural network': 'gnn',
         'gnn': 'gnn',
