@@ -99,7 +99,6 @@ Uninet is designed to be modular and community-driven. Contributions are welcome
 
 ### 📜 License
 
-MIT License — free for personal and commercial use.
 
 ---
 
